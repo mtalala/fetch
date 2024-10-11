@@ -12,15 +12,41 @@ A div com ID result é onde os dados recebidos serão exibidos.
 A função getAPI() solicita uma solicitação à API pública https://jsonplaceholder.typicode.com/photos através do método fetch(). 
 A resposta à API é convertida para o formato JSON, usando o método .then(response => response.json()).
 
+```
+function getAPI() {
+  fetch('https://jsonplaceholder.typicode.com/photos')
+    .then(response => response.json())
+    .then(json => {
+      console.log(json);
+```
+
 2° Tópico - Manipulação dos Dados:
 
 Os dados retornados são exibidos no console e uma amostra dos primeiros 5 itens é exibida na página.
 Para cada imagem, é criado um div com o título e a imagem em miniatura (thumbnailUrl)
 Esses elementos são adicionados ao div através do ID Result.
 
+```
+const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = ''; // Limpa resultados anteriores
+      json.slice(0, 5).forEach(photo => { // Exibe os primeiros 5 itens
+        const photoElement = document.createElement('div');
+        photoElement.innerHTML = 
+          <h3>${photo.title}</h3>
+          <img src="${photo.thumbnailUrl}" alt="${photo.title}" />
+        ;
+```
+
 3° Tópico - Tratamento de Erros:
 
 Se a requisição falhar, o erro será registrado e exibido no console.
+
+```
+ .catch(error => {
+      console.error('Erro ao buscar dados:', error);
+    });
+}
+```
 
 O layout foi criado para ser responsivo, usando o CSS Grid para organizar as imagens de forma dinamizada em colunas de acordo com o tamanho da tela.
 
